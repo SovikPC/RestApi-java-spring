@@ -4,4 +4,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import ru.gurov.api.Models.Roles;
 
-public interface RolesRepository extends JpaRepository<Roles, Long>{}
+import java.util.Optional;
+
+public interface RolesRepository extends JpaRepository<Roles, Long>{
+    Optional<Roles> findByName(String name);
+}

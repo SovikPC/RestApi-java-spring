@@ -4,4 +4,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import ru.gurov.api.Models.Model;
 
-public interface ModelRepository extends JpaRepository<Model, Long>{}
+import java.util.Optional;
+
+public interface ModelRepository extends JpaRepository<Model, Long>{
+    Optional<Model> findByName(String name);
+}

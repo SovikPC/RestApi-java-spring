@@ -4,4 +4,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import ru.gurov.api.Models.Manufacturies;
 
-public interface ManufacturiesRepository extends JpaRepository<Manufacturies, Long>{}
+import java.util.Optional;
+
+public interface ManufacturiesRepository extends JpaRepository<Manufacturies, Long>{
+    Optional<Manufacturies> findByName(String name);
+}

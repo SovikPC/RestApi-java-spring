@@ -4,4 +4,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import ru.gurov.api.Models.Responsible;
 
-public interface ResponsibleRepository extends JpaRepository<Responsible, Long>{}
+import java.util.Optional;
+
+public interface ResponsibleRepository extends JpaRepository<Responsible, Long>{
+    Optional<Responsible> findByFio(String fio);
+}

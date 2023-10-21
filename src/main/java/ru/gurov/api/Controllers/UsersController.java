@@ -4,8 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.gurov.api.Models.Users;
 
-import java.util.List;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import ru.gurov.api.Repositoryes.UsersRepository;
@@ -23,9 +21,9 @@ public class UsersController {
     public ResponseEntity<Object> getAllUsers(){
         try {
             Iterable<Users> users = usersRepository.findAll();
-            return new ResponseEntity<Object>(users, HttpStatus.OK);
+            return new ResponseEntity<>(users, HttpStatus.OK);
         } catch(Exception ex) {
-            return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -34,22 +32,23 @@ public class UsersController {
         try {
             Users users = usersRepository.findById(id).get();
             if(users != null) {
-                return new ResponseEntity<Object>(users, HttpStatus.OK);
+                return new ResponseEntity<>(users, HttpStatus.OK);
             } else {
-                return new ResponseEntity<Object>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
         } catch(Exception ex) {
-            return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
-    @PostMapping("/users/create")
+    @PostMapping("/users")
     public ResponseEntity<Object> createUsers(@RequestBody Users users) {
-        try {
+        try
+        {
             Users savedUsers = usersRepository.save(users);
-            return new ResponseEntity<Object>(savedUsers, HttpStatus.OK);
+            return new ResponseEntity<>(savedUsers, HttpStatus.OK);
         } catch(Exception ex) {
-            return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -58,9 +57,9 @@ public class UsersController {
         try {
             users.setId(id);
             Users savedUsers = usersRepository.save(users);
-            return new ResponseEntity<Object>(savedUsers, HttpStatus.OK);
+            return new ResponseEntity<>(savedUsers, HttpStatus.OK);
         } catch(Exception ex) {
-            return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -68,9 +67,9 @@ public class UsersController {
     public ResponseEntity<HttpStatus> deleteUsers(@PathVariable("id") Long id) {
         try {
             usersRepository.deleteById(id);
-            return new ResponseEntity<HttpStatus>(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch(Exception ex) {
-            return new ResponseEntity<HttpStatus>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 }

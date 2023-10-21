@@ -28,10 +28,10 @@ public class PositionController {
         }
     }
 
-    @GetMapping("/position/{id}")
-    public ResponseEntity<Object> getPositionById(@PathVariable("id") Long id) {
+    @GetMapping("/position/{name}")
+    public ResponseEntity<Object> getPositionById(@PathVariable("name") String name) {
         try {
-            Position position = positionRepository.findById(id).get();
+            Position position = positionRepository.findByName(name).get();
             if(position != null) {
                 return new ResponseEntity<Object>(position, HttpStatus.OK);
             } else {
@@ -42,7 +42,7 @@ public class PositionController {
         }
     }
 
-    @PostMapping("/position/create")
+    @PostMapping("/position")
     public ResponseEntity<Object> createPosition(@RequestBody Position position) {
         try {
             Position savedPosition = positionRepository.save(position);

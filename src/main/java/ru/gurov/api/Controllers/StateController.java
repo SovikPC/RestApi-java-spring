@@ -22,33 +22,33 @@ public class StateController {
     public ResponseEntity<Object> getAllState(){
         try {
             Iterable<State> state = stateRepository.findAll();
-            return new ResponseEntity<Object>(state, HttpStatus.OK);
+            return new ResponseEntity<>(state, HttpStatus.OK);
         } catch(Exception ex) {
-            return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
-    @GetMapping("/state/{id}")
-    public ResponseEntity<Object> getStateById(@PathVariable("id") Long id) {
+    @GetMapping("/state/{name}")
+    public ResponseEntity<Object> getStateById(@PathVariable("name") String name) {
         try {
-            State state = stateRepository.findById(id).get();
+            State state = stateRepository.findByName(name).get();
             if(state != null) {
-                return new ResponseEntity<Object>(state, HttpStatus.OK);
+                return new ResponseEntity<>(state, HttpStatus.OK);
             } else {
-                return new ResponseEntity<Object>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
         } catch(Exception ex) {
-            return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
-    @PostMapping("/state/create")
+    @PostMapping("/state")
     public ResponseEntity<Object> createState(@RequestBody State state) {
         try {
             State savedState = stateRepository.save(state);
-            return new ResponseEntity<Object>(savedState, HttpStatus.OK);
+            return new ResponseEntity<>(savedState, HttpStatus.OK);
         } catch(Exception ex) {
-            return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -57,9 +57,9 @@ public class StateController {
         try {
             state.setId(id);
             State savedState = stateRepository.save(state);
-            return new ResponseEntity<Object>(savedState, HttpStatus.OK);
+            return new ResponseEntity<>(savedState, HttpStatus.OK);
         } catch(Exception ex) {
-            return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -67,9 +67,9 @@ public class StateController {
     public ResponseEntity<HttpStatus> deleteState(@PathVariable("id") Long id) {
         try {
             stateRepository.deleteById(id);
-            return new ResponseEntity<HttpStatus>(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch(Exception ex) {
-            return new ResponseEntity<HttpStatus>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
     

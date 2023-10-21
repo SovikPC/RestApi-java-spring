@@ -31,10 +31,10 @@ public class ModelController {
         }
     }
 
-    @GetMapping("/model/{id}")
-    public ResponseEntity<Object> getModelById(@PathVariable("id") Long id) {
+    @GetMapping("/model/{name}")
+    public ResponseEntity<Object> getModelById(@PathVariable("name") String name) {
         try {
-            Model model = modelRepository.findById(id).get();
+            Model model = modelRepository.findByName(name).get();
             if(model != null) {
                 return new ResponseEntity<Object>(model, HttpStatus.OK);
             } else {
@@ -45,7 +45,7 @@ public class ModelController {
         }
     }
 
-    @PostMapping("/model/create")
+    @PostMapping("/model")
     public ResponseEntity<Object> createModel(@RequestBody Model model) {
         try {
             Model savedModel = modelRepository.save(model);

@@ -20,9 +20,9 @@ public class EquipmentController {
     public ResponseEntity<Object> getAllEquipment(){
         try {
             Iterable<Equipment> equipment = equipmentRepository.findAll();
-            return new ResponseEntity<Object>(equipment, HttpStatus.OK);
+            return new ResponseEntity<>(equipment, HttpStatus.OK);
         } catch(Exception ex) {
-            return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -30,13 +30,9 @@ public class EquipmentController {
     public ResponseEntity<Object> getEquipmentById(@PathVariable("id") Long id) {
         try {
             Equipment equipment = equipmentRepository.findById(id).get();
-            if(equipment != null) {
-                return new ResponseEntity<Object>(equipment, HttpStatus.OK);
-            } else {
-                return new ResponseEntity<Object>(HttpStatus.NOT_FOUND);
-            }
+            return new ResponseEntity<>(equipment, HttpStatus.OK);
         } catch(Exception ex) {
-            return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -44,9 +40,9 @@ public class EquipmentController {
     public ResponseEntity<Object> createEquipment(@RequestBody Equipment equipment) {
         try {
             Equipment savedEquipment = equipmentRepository.save(equipment);
-            return new ResponseEntity<Object>(savedEquipment, HttpStatus.OK);
+            return new ResponseEntity<>(savedEquipment, HttpStatus.OK);
         } catch(Exception ex) {
-            return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -55,9 +51,9 @@ public class EquipmentController {
         try {
             equipment.setId(id);
             Equipment savedEquipment = equipmentRepository.save(equipment);
-            return new ResponseEntity<Object>(savedEquipment, HttpStatus.OK);
+            return new ResponseEntity<>(savedEquipment, HttpStatus.OK);
         } catch(Exception ex) {
-            return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -65,9 +61,9 @@ public class EquipmentController {
     public ResponseEntity<HttpStatus> deleteEquipment(@PathVariable("id") Long id) {
         try {
             equipmentRepository.deleteById(id);
-            return new ResponseEntity<HttpStatus>(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch(Exception ex) {
-            return new ResponseEntity<HttpStatus>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 }

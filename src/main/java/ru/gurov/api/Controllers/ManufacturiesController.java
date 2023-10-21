@@ -20,33 +20,33 @@ public class ManufacturiesController {
     public ResponseEntity<Object> getAllManufacturies(){
         try {
             Iterable<Manufacturies> manufacturies = manufacturiesRepository.findAll();
-            return new ResponseEntity<Object>(manufacturies, HttpStatus.OK);
+            return new ResponseEntity<>(manufacturies, HttpStatus.OK);
         } catch(Exception ex) {
-            return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
-    @GetMapping("/manufacturies/{id}")
-    public ResponseEntity<Object> getManufacturiesById(@PathVariable("id") Long id) {
+    @GetMapping("/manufacturies/{name}")
+    public ResponseEntity<Object> getManufacturiesById(@PathVariable("name") String name) {
         try {
-            Manufacturies manufacturies = manufacturiesRepository.findById(id).get();
+            Manufacturies manufacturies = manufacturiesRepository.findByName(name).get();
             if(manufacturies != null) {
-                return new ResponseEntity<Object>(manufacturies, HttpStatus.OK);
+                return new ResponseEntity<>(manufacturies, HttpStatus.OK);
             } else {
-                return new ResponseEntity<Object>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
         } catch(Exception ex) {
-            return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
-    @PostMapping("/manufacturies/create")
+    @PostMapping("/manufacturies")
     public ResponseEntity<Object> createManufactiries(@RequestBody Manufacturies manufacturies) {
         try {
-            Manufacturies savedManufacturies = manufacturiesRepository.save(manufacturies);
-            return new ResponseEntity<Object>(savedManufacturies, HttpStatus.OK);
+            Manufacturies saveManufacturies = manufacturiesRepository.save(manufacturies);
+            return new ResponseEntity<>(saveManufacturies, HttpStatus.OK);
         } catch(Exception ex) {
-            return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -55,9 +55,9 @@ public class ManufacturiesController {
         try {
             manufacturies.setId(id);
             Manufacturies savedManufacturies = manufacturiesRepository.save(manufacturies);
-            return new ResponseEntity<Object>(savedManufacturies, HttpStatus.OK);
+            return new ResponseEntity<>(savedManufacturies, HttpStatus.OK);
         } catch(Exception ex) {
-            return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -65,9 +65,9 @@ public class ManufacturiesController {
     public ResponseEntity<HttpStatus> deleteManufacturies(@PathVariable("id") Long id) {
         try {
             manufacturiesRepository.deleteById(id);
-            return new ResponseEntity<HttpStatus>(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch(Exception ex) {
-            return new ResponseEntity<HttpStatus>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
     

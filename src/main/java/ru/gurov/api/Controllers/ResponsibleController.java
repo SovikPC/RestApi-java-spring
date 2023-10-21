@@ -29,10 +29,10 @@ public class ResponsibleController {
         }
     }
 
-    @GetMapping("/responsible/{id}")
-    public ResponseEntity<Object> getResponsibleById(@PathVariable("id") Long id) {
+    @GetMapping("/responsible/{fio}")
+    public ResponseEntity<Object> getResponsibleById(@PathVariable("fio") String fio) {
         try {
-            Responsible responsible = responsibleRepository.findById(id).get();
+            Responsible responsible = responsibleRepository.findByFio(fio).get();
             if(responsible != null) {
                 return new ResponseEntity<Object>(responsible, HttpStatus.OK);
             } else {
@@ -43,7 +43,7 @@ public class ResponsibleController {
         }
     }
 
-    @PostMapping("/responsible/create")
+    @PostMapping("/responsible")
     public ResponseEntity<Object> createResponsible(@RequestBody Responsible responsible) {
         try {
             Responsible savedResponsible = responsibleRepository.save(responsible);
