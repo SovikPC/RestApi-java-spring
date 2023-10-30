@@ -1,26 +1,27 @@
 package ru.gurov.api.Controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import ru.gurov.api.Models.Users;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import ru.gurov.api.Repositoryes.UsersRepository;
+import ru.gurov.api.Repositoryes.UserRepository;
 
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
 @CrossOrigin("http://localhost:8081/")
-public class UsersController {
+public class UserController {
 
-    private final UsersRepository usersRepository;
+    private final UserRepository userRepository;
 
     @GetMapping("/users")
     public ResponseEntity<Object> getAllUsers(){
         try {
-            Iterable<Users> users = usersRepository.findAll();
+            Iterable<Users> users = userRepository.findAll();
             return new ResponseEntity<>(users, HttpStatus.OK);
         } catch(Exception ex) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -30,7 +31,7 @@ public class UsersController {
     @GetMapping("/users/{id}")
     public ResponseEntity<Object> getUsersById(@PathVariable("id") Long id) {
         try {
-            Users users = usersRepository.findById(id).get();
+            Users users = userRepository.findById(id).orElseThrow();
             if(users != null) {
                 return new ResponseEntity<>(users, HttpStatus.OK);
             } else {
@@ -45,7 +46,10 @@ public class UsersController {
     public ResponseEntity<Object> createUsers(@RequestBody Users users) {
         try
         {
-            Users savedUsers = usersRepository.save(users);
+            BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+            String hashPassword = bCryptPasswordEncoder.encode(users.getPassword());
+            users.setPassword(hashPassword);
+            Users savedUsers = userRepository.save(users);
             return new ResponseEntity<>(savedUsers, HttpStatus.OK);
         } catch(Exception ex) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -55,8 +59,11 @@ public class UsersController {
     @PutMapping("/users/{id}")
     public ResponseEntity<Object> updateUsers(@PathVariable("id") Long id, @RequestBody Users users) {
         try {
-            users.setId(id);
-            Users savedUsers = usersRepository.save(users);
+            users.setId_user(id);
+            BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+            String hashPassword = bCryptPasswordEncoder.encode(users.getPassword());
+            users.setPassword(hashPassword);
+            Users savedUsers = userRepository.save(users);
             return new ResponseEntity<>(savedUsers, HttpStatus.OK);
         } catch(Exception ex) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -66,7 +73,7 @@ public class UsersController {
     @DeleteMapping("/users/{id}")
     public ResponseEntity<HttpStatus> deleteUsers(@PathVariable("id") Long id) {
         try {
-            usersRepository.deleteById(id);
+            userRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch(Exception ex) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

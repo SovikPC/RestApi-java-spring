@@ -1,7 +1,9 @@
 package ru.gurov.api.Repositoryes;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import ru.gurov.api.Models.Log;
+import org.springframework.stereotype.Repository;
+import ru.gurov.api.Models.Logs;
 
-public interface LogRepository extends JpaRepository<Log, Long> {
+@Repository
+public interface LogRepository extends JpaRepository<Logs, Long> {
 }

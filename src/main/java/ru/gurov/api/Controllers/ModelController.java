@@ -1,15 +1,12 @@
 package ru.gurov.api.Controllers;
 
-import java.util.List;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import lombok.AllArgsConstructor;
 
-import ru.gurov.api.Models.Model;
-import ru.gurov.api.Repositoryes.ManufacturiesRepository;
+import ru.gurov.api.Models.Models;
 import ru.gurov.api.Repositoryes.ModelRepository;
 
 
@@ -24,45 +21,45 @@ public class ModelController {
     @GetMapping("/model")
     public ResponseEntity<Object> getAllModel(){
         try {
-            Iterable<Model> models = modelRepository.findAll();
-            return new ResponseEntity<Object>(models, HttpStatus.OK);
+            Iterable<Models> models = modelRepository.findAll();
+            return new ResponseEntity<>(models, HttpStatus.OK);
         } catch(Exception ex) {
-            return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
     @GetMapping("/model/{name}")
     public ResponseEntity<Object> getModelById(@PathVariable("name") String name) {
         try {
-            Model model = modelRepository.findByName(name).get();
-            if(model != null) {
-                return new ResponseEntity<Object>(model, HttpStatus.OK);
+            Models models = modelRepository.findByName(name).orElseThrow();
+            if(models != null) {
+                return new ResponseEntity<>(models, HttpStatus.OK);
             } else {
-                return new ResponseEntity<Object>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
         } catch(Exception ex) {
-            return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
     @PostMapping("/model")
-    public ResponseEntity<Object> createModel(@RequestBody Model model) {
+    public ResponseEntity<Object> createModel(@RequestBody Models models) {
         try {
-            Model savedModel = modelRepository.save(model);
-            return new ResponseEntity<Object>(savedModel, HttpStatus.OK);
+            Models savedModels = modelRepository.save(models);
+            return new ResponseEntity<>(savedModels, HttpStatus.OK);
         } catch(Exception ex) {
-            return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
     @PutMapping("/model/{id}")
-    public ResponseEntity<Object> updateModel(@PathVariable("id") Long id, @RequestBody Model model) {
+    public ResponseEntity<Object> updateModel(@PathVariable("id") Long id, @RequestBody Models models) {
         try {
-            model.setId(id);
-            Model savedModel = modelRepository.save(model);
-            return new ResponseEntity<Object>(savedModel, HttpStatus.OK);
+            models.setId_model(id);
+            Models savedModels = modelRepository.save(models);
+            return new ResponseEntity<>(savedModels, HttpStatus.OK);
         } catch(Exception ex) {
-            return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -70,9 +67,9 @@ public class ModelController {
     public ResponseEntity<HttpStatus> deleteModel(@PathVariable("id") Long id) {
         try {
             modelRepository.deleteById(id);
-            return new ResponseEntity<HttpStatus>(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch(Exception ex) {
-            return new ResponseEntity<HttpStatus>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 }

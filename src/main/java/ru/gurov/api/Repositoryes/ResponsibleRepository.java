@@ -2,10 +2,11 @@ package ru.gurov.api.Repositoryes;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import ru.gurov.api.Models.Responsible;
+import org.springframework.stereotype.Repository;
+import ru.gurov.api.Models.Responsible_persons;
 
 import java.util.Optional;
-
-public interface ResponsibleRepository extends JpaRepository<Responsible, Long>{
-    Optional<Responsible> findByFio(String fio);
+@Repository
+public interface ResponsibleRepository extends JpaRepository<Responsible_persons, Long>{
+    Optional<Responsible_persons> findByFio(String fio);
 }

@@ -3,11 +3,11 @@ package ru.gurov.api.Repositoryes;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import org.springframework.stereotype.Repository;
-import ru.gurov.api.Models.Positions;
+import ru.gurov.api.Models.Manufacturers;
 
 import java.util.Optional;
 
 @Repository
-public interface PositionRepository extends JpaRepository<Positions, Long>{
-    Optional<Positions> findByName(String name);
+public interface ManufacturerRepository extends JpaRepository<Manufacturers, Long>{
+    Optional<Manufacturers> findByName(String name);
 }

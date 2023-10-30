@@ -7,8 +7,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.gurov.api.Models.Equipment;
-import ru.gurov.api.Models.Log;
+import ru.gurov.api.Models.Logs;
 import ru.gurov.api.Repositoryes.LogRepository;
 
 @RestController
@@ -22,7 +21,7 @@ public class LogController {
     @GetMapping("/log")
     public ResponseEntity<Object> getAllLog(){
         try {
-            Iterable<Log> log = logRepository.findAll();
+            Iterable<Logs> log = logRepository.findAll();
             return new ResponseEntity<>(log, HttpStatus.OK);
         } catch(Exception ex) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

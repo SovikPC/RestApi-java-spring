@@ -9,27 +9,27 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Data
 @Entity
-@Table(name = "logs")
+@Table(name = "Logs")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Log {
+public class Logs {
 
     @Id
-    @Column(name = "id")
+    @Column(name = "id_log")
     @GenericGenerator(name = "generator", strategy = "increment")
     @GeneratedValue(generator = "generator")
-    private Long id;
+    private Long id_log;
 
     @ManyToOne
-    @JoinColumn(name = "id_user", referencedColumnName = "id")
-    private Users user;
+    @JoinColumn(name = "user_id", referencedColumnName = "id_user")
+    private Users users;
 
     @ManyToOne
-    @JoinColumn(name = "id_operation", referencedColumnName = "id")
-    private Operation operation;
+    @JoinColumn(name = "operation_id", referencedColumnName = "id_operation")
+    private Operations operations;
 
     @ManyToOne
-    @JoinColumn(name = "id_equipment", referencedColumnName = "id")
-    private Equipment equipment;
+    @JoinColumn(name = "equipment_id", referencedColumnName = "id_equipment")
+    private Equipments equipments;
 }

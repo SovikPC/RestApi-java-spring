@@ -14,17 +14,19 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Table(name = "manufacturies")
+@Table(name = "Responsible_persons")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Manufacturies {
+public class Responsible_persons {
+    
     @Id
-    @Column(name = "id")
+    @Column(name = "id_responsible")
     @GenericGenerator(name = "generator", strategy = "increment")
     @GeneratedValue(generator = "generator")
-    private Long id;
+    private Long id_responsible;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "full_name")
+    private String fio;
+    
 }

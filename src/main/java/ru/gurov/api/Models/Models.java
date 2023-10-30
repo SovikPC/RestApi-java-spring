@@ -6,6 +6,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,17 +16,22 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Table(name = "state")
+@Table(name = "Models")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class State {
+public class Models {
+
     @Id
-    @Column(name = "id")
+    @Column(name = "id_model")
     @GenericGenerator(name = "generator", strategy = "increment")
     @GeneratedValue(generator = "generator")
-    private Long id;
+    private Long id_model;
 
     @Column(name = "name")
     private String name;
+
+    @ManyToOne
+    @JoinColumn(name = "manufacturer_id", referencedColumnName = "id_manufacturer")
+    private Manufacturers manufacturers;
 }

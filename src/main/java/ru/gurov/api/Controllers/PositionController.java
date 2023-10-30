@@ -1,13 +1,11 @@
 package ru.gurov.api.Controllers;
 
-import java.util.List;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import lombok.RequiredArgsConstructor;
-import ru.gurov.api.Models.Position;
+import ru.gurov.api.Models.Positions;
 import ru.gurov.api.Repositoryes.PositionRepository;
 
 @RestController
@@ -21,45 +19,45 @@ public class PositionController {
     @GetMapping("/position")
     public ResponseEntity<Object> getAllPosition(){
         try {
-            Iterable<Position> position = positionRepository.findAll();
-            return new ResponseEntity<Object>(position, HttpStatus.OK);
+            Iterable<Positions> position = positionRepository.findAll();
+            return new ResponseEntity<>(position, HttpStatus.OK);
         } catch(Exception ex) {
-            return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
     @GetMapping("/position/{name}")
     public ResponseEntity<Object> getPositionById(@PathVariable("name") String name) {
         try {
-            Position position = positionRepository.findByName(name).get();
-            if(position != null) {
-                return new ResponseEntity<Object>(position, HttpStatus.OK);
+            Positions positions = positionRepository.findByName(name).orElseThrow();
+            if(positions != null) {
+                return new ResponseEntity<>(positions, HttpStatus.OK);
             } else {
-                return new ResponseEntity<Object>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
         } catch(Exception ex) {
-            return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
     @PostMapping("/position")
-    public ResponseEntity<Object> createPosition(@RequestBody Position position) {
+    public ResponseEntity<Object> createPosition(@RequestBody Positions positions) {
         try {
-            Position savedPosition = positionRepository.save(position);
-            return new ResponseEntity<Object>(savedPosition, HttpStatus.OK);
+            Positions savedPositions = positionRepository.save(positions);
+            return new ResponseEntity<>(savedPositions, HttpStatus.OK);
         } catch(Exception ex) {
-            return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
     @PutMapping("/position/{id}")
-    public ResponseEntity<Object> updatePosition(@PathVariable("id") Long id, @RequestBody Position position) {
+    public ResponseEntity<Object> updatePosition(@PathVariable("id") Long id, @RequestBody Positions positions) {
         try {
-            position.setId(id);
-            Position savedPosition = positionRepository.save(position);
-            return new ResponseEntity<Object>(savedPosition, HttpStatus.OK);
+            positions.setId_position(id);
+            Positions savedPositions = positionRepository.save(positions);
+            return new ResponseEntity<>(savedPositions, HttpStatus.OK);
         } catch(Exception ex) {
-            return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -67,9 +65,9 @@ public class PositionController {
     public ResponseEntity<HttpStatus> deleteEquipment(@PathVariable("id") Long id) {
         try {
             positionRepository.deleteById(id);
-            return new ResponseEntity<HttpStatus>(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch(Exception ex) {
-            return new ResponseEntity<HttpStatus>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 }

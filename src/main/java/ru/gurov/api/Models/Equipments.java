@@ -16,31 +16,31 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Table(name = "equipment")
+@Table(name = "Equipments")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Equipment {
+public class Equipments {
 
     @Id
-    @Column(name = "id")
+    @Column(name = "id_equipment")
     @GenericGenerator(name = "generator", strategy = "increment")
     @GeneratedValue(generator = "generator")
-    private Long id;
+    private Long id_equipment;
 
-    @Column(name = "name")
+    @Column(name = "name_equipment")
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "id_models", referencedColumnName = "id")
-    private Model model;
+    @JoinColumn(name = "models_id", referencedColumnName = "id_model")
+    private Models models;
 
     @Column(name = "description")
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "id_responsible", referencedColumnName = "id")
-    private Responsible responsible;
+    @JoinColumn(name = "responsible_id", referencedColumnName = "id_responsible")
+    private Responsible_persons responsiblePersons;
 
     @Column(name = "inventory")
     private Long inventory;
@@ -49,16 +49,16 @@ public class Equipment {
     private String serial;
 
     @ManyToOne
-    @JoinColumn(name = "id_positions", referencedColumnName = "id")
-    private Position position;
+    @JoinColumn(name = "position_id", referencedColumnName = "id_position")
+    private Positions positions;
 
-    @Column(name = "comments")
+    @Column(name = "comment")
     private String comments;
 
     @Column(name = "price")
     private Long price;
 
     @ManyToOne
-    @JoinColumn(name = "id_state", referencedColumnName = "id")
-    private State state;
+    @JoinColumn(name = "state_id", referencedColumnName = "id_state")
+    private States states;
 }

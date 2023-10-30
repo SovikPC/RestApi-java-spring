@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import lombok.RequiredArgsConstructor;
-import ru.gurov.api.Models.Equipment;
+import ru.gurov.api.Models.Equipments;
 import ru.gurov.api.Repositoryes.EquipmentRepository;
 
 @RestController
@@ -19,7 +19,7 @@ public class EquipmentController {
     @GetMapping("/equipment")
     public ResponseEntity<Object> getAllEquipment(){
         try {
-            Iterable<Equipment> equipment = equipmentRepository.findAll();
+            Iterable<Equipments> equipment = equipmentRepository.findAll();
             return new ResponseEntity<>(equipment, HttpStatus.OK);
         } catch(Exception ex) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -29,29 +29,29 @@ public class EquipmentController {
     @GetMapping("/equipment/{id}")
     public ResponseEntity<Object> getEquipmentById(@PathVariable("id") Long id) {
         try {
-            Equipment equipment = equipmentRepository.findById(id).get();
-            return new ResponseEntity<>(equipment, HttpStatus.OK);
+            Equipments equipments = equipmentRepository.findById(id).orElseThrow();
+            return new ResponseEntity<>(equipments, HttpStatus.OK);
         } catch(Exception ex) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
     @PostMapping("/equipment/create")
-    public ResponseEntity<Object> createEquipment(@RequestBody Equipment equipment) {
+    public ResponseEntity<Object> createEquipment(@RequestBody Equipments equipments) {
         try {
-            Equipment savedEquipment = equipmentRepository.save(equipment);
-            return new ResponseEntity<>(savedEquipment, HttpStatus.OK);
+            Equipments savedEquipments = equipmentRepository.save(equipments);
+            return new ResponseEntity<>(savedEquipments, HttpStatus.OK);
         } catch(Exception ex) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
     @PutMapping("/equipment/{id}")
-    public ResponseEntity<Object> updateEquipment(@PathVariable("id") Long id, @RequestBody Equipment equipment) {
+    public ResponseEntity<Object> updateEquipment(@PathVariable("id") Long id, @RequestBody Equipments equipments) {
         try {
-            equipment.setId(id);
-            Equipment savedEquipment = equipmentRepository.save(equipment);
-            return new ResponseEntity<>(savedEquipment, HttpStatus.OK);
+            equipments.setId_equipment(id);
+            Equipments savedEquipments = equipmentRepository.save(equipments);
+            return new ResponseEntity<>(savedEquipments, HttpStatus.OK);
         } catch(Exception ex) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

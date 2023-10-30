@@ -9,16 +9,17 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Data
 @Entity
-@Table(name = "equipment")
+@Table(name = "Operations")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Operation {
+public class Operations {
+
     @Id
-    @Column(name = "id")
+    @Column(name = "id_operation")
     @GenericGenerator(name = "generator", strategy = "increment")
     @GeneratedValue(generator = "generator")
-    private Long id;
+    private Long id_operation;
 
     @Column(name = "operation")
     private String operation;

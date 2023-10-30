@@ -2,10 +2,12 @@ package ru.gurov.api.Repositoryes;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import ru.gurov.api.Models.State;
+import org.springframework.stereotype.Repository;
+import ru.gurov.api.Models.States;
 
 import java.util.Optional;
 
-public interface StateRepository extends JpaRepository<State, Long>{
-    Optional<State> findByName(String name);
+@Repository
+public interface StateRepository extends JpaRepository<States, Long>{
+    Optional<States> findByName(String name);
 }

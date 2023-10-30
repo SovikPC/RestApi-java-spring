@@ -1,13 +1,11 @@
 package ru.gurov.api.Controllers;
 
-import java.util.List;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import lombok.RequiredArgsConstructor;
-import ru.gurov.api.Models.State;
+import ru.gurov.api.Models.States;
 import ru.gurov.api.Repositoryes.StateRepository;
 
 @RestController
@@ -21,7 +19,7 @@ public class StateController {
     @GetMapping("/state")
     public ResponseEntity<Object> getAllState(){
         try {
-            Iterable<State> state = stateRepository.findAll();
+            Iterable<States> state = stateRepository.findAll();
             return new ResponseEntity<>(state, HttpStatus.OK);
         } catch(Exception ex) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -31,9 +29,9 @@ public class StateController {
     @GetMapping("/state/{name}")
     public ResponseEntity<Object> getStateById(@PathVariable("name") String name) {
         try {
-            State state = stateRepository.findByName(name).get();
-            if(state != null) {
-                return new ResponseEntity<>(state, HttpStatus.OK);
+            States states = stateRepository.findByName(name).orElseThrow();
+            if(states != null) {
+                return new ResponseEntity<>(states, HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
@@ -43,21 +41,21 @@ public class StateController {
     }
 
     @PostMapping("/state")
-    public ResponseEntity<Object> createState(@RequestBody State state) {
+    public ResponseEntity<Object> createState(@RequestBody States states) {
         try {
-            State savedState = stateRepository.save(state);
-            return new ResponseEntity<>(savedState, HttpStatus.OK);
+            States savedStates = stateRepository.save(states);
+            return new ResponseEntity<>(savedStates, HttpStatus.OK);
         } catch(Exception ex) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
     @PutMapping("/state/{id}")
-    public ResponseEntity<Object> updateState(@PathVariable("id") Long id, @RequestBody State state) {
+    public ResponseEntity<Object> updateState(@PathVariable("id") Long id, @RequestBody States states) {
         try {
-            state.setId(id);
-            State savedState = stateRepository.save(state);
-            return new ResponseEntity<>(savedState, HttpStatus.OK);
+            states.setId_state(id);
+            States savedStates = stateRepository.save(states);
+            return new ResponseEntity<>(savedStates, HttpStatus.OK);
         } catch(Exception ex) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

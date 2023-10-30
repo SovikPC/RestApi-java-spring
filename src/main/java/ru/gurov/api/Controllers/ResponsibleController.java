@@ -1,13 +1,11 @@
 package ru.gurov.api.Controllers;
 
-import java.util.List;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import lombok.RequiredArgsConstructor;
-import ru.gurov.api.Models.Responsible;
+import ru.gurov.api.Models.Responsible_persons;
 import ru.gurov.api.Repositoryes.ResponsibleRepository;
 
 
@@ -22,45 +20,45 @@ public class ResponsibleController {
     @GetMapping("/responsible")
     public ResponseEntity<Object> getAllResponsible(){
         try {
-            Iterable<Responsible> responsible = responsibleRepository.findAll();
-            return new ResponseEntity<Object>(responsible, HttpStatus.OK);
+            Iterable<Responsible_persons> responsible = responsibleRepository.findAll();
+            return new ResponseEntity<>(responsible, HttpStatus.OK);
         } catch(Exception ex) {
-            return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
     @GetMapping("/responsible/{fio}")
     public ResponseEntity<Object> getResponsibleById(@PathVariable("fio") String fio) {
         try {
-            Responsible responsible = responsibleRepository.findByFio(fio).get();
-            if(responsible != null) {
-                return new ResponseEntity<Object>(responsible, HttpStatus.OK);
+            Responsible_persons responsiblePersons = responsibleRepository.findByFio(fio).orElseThrow();
+            if(responsiblePersons != null) {
+                return new ResponseEntity<>(responsiblePersons, HttpStatus.OK);
             } else {
-                return new ResponseEntity<Object>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
         } catch(Exception ex) {
-            return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
     @PostMapping("/responsible")
-    public ResponseEntity<Object> createResponsible(@RequestBody Responsible responsible) {
+    public ResponseEntity<Object> createResponsible(@RequestBody Responsible_persons responsiblePersons) {
         try {
-            Responsible savedResponsible = responsibleRepository.save(responsible);
-            return new ResponseEntity<Object>(savedResponsible, HttpStatus.OK);
+            Responsible_persons savedResponsiblePersons = responsibleRepository.save(responsiblePersons);
+            return new ResponseEntity<>(savedResponsiblePersons, HttpStatus.OK);
         } catch(Exception ex) {
-            return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
     @PutMapping("/responsible/{id}")
-    public ResponseEntity<Object> updateResponsible(@PathVariable("id") Long id, @RequestBody Responsible responsible) {
+    public ResponseEntity<Object> updateResponsible(@PathVariable("id") Long id, @RequestBody Responsible_persons responsiblePersons) {
         try {
-            responsible.setId(id);
-            Responsible savedResponsible = responsibleRepository.save(responsible);
-            return new ResponseEntity<Object>(savedResponsible, HttpStatus.OK);
+            responsiblePersons.setId_responsible(id);
+            Responsible_persons savedResponsiblePersons = responsibleRepository.save(responsiblePersons);
+            return new ResponseEntity<>(savedResponsiblePersons, HttpStatus.OK);
         } catch(Exception ex) {
-            return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -68,9 +66,9 @@ public class ResponsibleController {
     public ResponseEntity<HttpStatus> deleteResponsible(@PathVariable("id") Long id) {
         try {
             responsibleRepository.deleteById(id);
-            return new ResponseEntity<HttpStatus>(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch(Exception ex) {
-            return new ResponseEntity<HttpStatus>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
     

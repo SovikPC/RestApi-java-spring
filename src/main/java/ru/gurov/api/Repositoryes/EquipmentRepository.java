@@ -2,8 +2,10 @@ package ru.gurov.api.Repositoryes;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import ru.gurov.api.Models.Equipment;
+import org.springframework.stereotype.Repository;
+import ru.gurov.api.Models.Equipments;
 
-public interface EquipmentRepository extends JpaRepository<Equipment, Long>{
+@Repository
+public interface EquipmentRepository extends JpaRepository<Equipments, Long>{
 
 }
