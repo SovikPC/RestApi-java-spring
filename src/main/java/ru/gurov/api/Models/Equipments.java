@@ -1,14 +1,8 @@
 package ru.gurov.api.Models;
 
-import org.hibernate.annotations.GenericGenerator;
+import jakarta.persistence.*;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,9 +18,8 @@ public class Equipments {
 
     @Id
     @Column(name = "id_equipment")
-    @GenericGenerator(name = "generator", strategy = "increment")
-    @GeneratedValue(generator = "generator")
-    private Long id_equipment;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name = "name_equipment")
     private String name;
@@ -35,12 +28,9 @@ public class Equipments {
     @JoinColumn(name = "models_id", referencedColumnName = "id_model")
     private Models models;
 
-    @Column(name = "description")
-    private String description;
-
     @ManyToOne
     @JoinColumn(name = "responsible_id", referencedColumnName = "id_responsible")
-    private Responsible_persons responsiblePersons;
+    private Responsible_persons responsible;
 
     @Column(name = "inventory")
     private Long inventory;
@@ -59,6 +49,6 @@ public class Equipments {
     private Long price;
 
     @ManyToOne
-    @JoinColumn(name = "state_id", referencedColumnName = "id_state")
-    private States states;
+    @JoinColumn(name = "status_id", referencedColumnName = "id_status")
+    private Statuses statuses;
 }

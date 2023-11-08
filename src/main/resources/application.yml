@@ -2,10 +2,10 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/Inventory
     username: postgres
-    password: qweqwe123
+    password: *****
   jpa:
         hibernate:
-          ddl-auto: update
+          ddl-auto: create-drop
         show-sql: false
         properties:
           hibernate:

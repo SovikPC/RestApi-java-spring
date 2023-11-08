@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import lombok.RequiredArgsConstructor;
 import ru.gurov.api.Models.Manufacturers;
-import ru.gurov.api.Repositoryes.ManufacturerRepository;
+import ru.gurov.api.Repositories.ManufacturerRepository;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,10 +26,10 @@ public class ManufacturerController {
         }
     }
 
-    @GetMapping("/manufacturer/{name}")
-    public ResponseEntity<Object> getManufacturerById(@PathVariable("name") String name) {
+    @GetMapping("/manufacturer/{name_manufacturer}")
+    public ResponseEntity<Object> getManufacturerById(@PathVariable("name_manufacturer") String name_manufacturer) {
         try {
-            Manufacturers manufacturers = manufacturerRepository.findByName(name).orElseThrow();
+            Manufacturers manufacturers = manufacturerRepository.findByName(name_manufacturer).orElseThrow();
             if(manufacturers != null) {
                 return new ResponseEntity<>(manufacturers, HttpStatus.OK);
             } else {
@@ -53,7 +53,7 @@ public class ManufacturerController {
     @PutMapping("/manufacturer/{id}")
     public ResponseEntity<Object> updateManufacturer(@PathVariable("id") Long id, @RequestBody Manufacturers manufacturers) {
         try {
-            manufacturers.setId_manufacturer(id);
+            manufacturers.setId(id);
             Manufacturers savedManufacturers = manufacturerRepository.save(manufacturers);
             return new ResponseEntity<>(savedManufacturers, HttpStatus.OK);
         } catch(Exception ex) {

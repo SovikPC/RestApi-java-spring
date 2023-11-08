@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import lombok.RequiredArgsConstructor;
 import ru.gurov.api.Models.Positions;
-import ru.gurov.api.Repositoryes.PositionRepository;
+import ru.gurov.api.Repositories.PositionRepository;
 
 @RestController
 @RequiredArgsConstructor
@@ -53,7 +53,7 @@ public class PositionController {
     @PutMapping("/position/{id}")
     public ResponseEntity<Object> updatePosition(@PathVariable("id") Long id, @RequestBody Positions positions) {
         try {
-            positions.setId_position(id);
+            positions.setId(id);
             Positions savedPositions = positionRepository.save(positions);
             return new ResponseEntity<>(savedPositions, HttpStatus.OK);
         } catch(Exception ex) {

@@ -5,33 +5,33 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import lombok.RequiredArgsConstructor;
-import ru.gurov.api.Models.States;
-import ru.gurov.api.Repositoryes.StateRepository;
+import ru.gurov.api.Models.Statuses;
+import ru.gurov.api.Repositories.StatusRepository;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
 @CrossOrigin("http://localhost:8081/")
-public class StateController {
+public class StatusController {
 
-    private final StateRepository stateRepository;
+    private final StatusRepository statusRepository;
 
-    @GetMapping("/state")
+    @GetMapping("/status")
     public ResponseEntity<Object> getAllState(){
         try {
-            Iterable<States> state = stateRepository.findAll();
+            Iterable<Statuses> state = statusRepository.findAll();
             return new ResponseEntity<>(state, HttpStatus.OK);
         } catch(Exception ex) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
-    @GetMapping("/state/{name}")
+    @GetMapping("/status/{name}")
     public ResponseEntity<Object> getStateById(@PathVariable("name") String name) {
         try {
-            States states = stateRepository.findByName(name).orElseThrow();
-            if(states != null) {
-                return new ResponseEntity<>(states, HttpStatus.OK);
+            Statuses statuses = statusRepository.findByStatus(name).orElseThrow();
+            if(statuses != null) {
+                return new ResponseEntity<>(statuses, HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
@@ -40,31 +40,31 @@ public class StateController {
         }
     }
 
-    @PostMapping("/state")
-    public ResponseEntity<Object> createState(@RequestBody States states) {
+    @PostMapping("/status")
+    public ResponseEntity<Object> createState(@RequestBody Statuses statuses) {
         try {
-            States savedStates = stateRepository.save(states);
-            return new ResponseEntity<>(savedStates, HttpStatus.OK);
+            Statuses savedStatuses = statusRepository.save(statuses);
+            return new ResponseEntity<>(savedStatuses, HttpStatus.OK);
         } catch(Exception ex) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
-    @PutMapping("/state/{id}")
-    public ResponseEntity<Object> updateState(@PathVariable("id") Long id, @RequestBody States states) {
+    @PutMapping("/status/{id}")
+    public ResponseEntity<Object> updateState(@PathVariable("id") Long id, @RequestBody Statuses statuses) {
         try {
-            states.setId_state(id);
-            States savedStates = stateRepository.save(states);
-            return new ResponseEntity<>(savedStates, HttpStatus.OK);
+            statuses.setId(id);
+            Statuses savedStatuses = statusRepository.save(statuses);
+            return new ResponseEntity<>(savedStatuses, HttpStatus.OK);
         } catch(Exception ex) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
-    @DeleteMapping("/state/{id}")
+    @DeleteMapping("/status/{id}")
     public ResponseEntity<HttpStatus> deleteState(@PathVariable("id") Long id) {
         try {
-            stateRepository.deleteById(id);
+            statusRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch(Exception ex) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

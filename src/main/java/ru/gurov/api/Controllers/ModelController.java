@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import lombok.AllArgsConstructor;
 
 import ru.gurov.api.Models.Models;
-import ru.gurov.api.Repositoryes.ModelRepository;
+import ru.gurov.api.Repositories.ModelRepository;
 
 
 @RestController
@@ -55,7 +55,7 @@ public class ModelController {
     @PutMapping("/model/{id}")
     public ResponseEntity<Object> updateModel(@PathVariable("id") Long id, @RequestBody Models models) {
         try {
-            models.setId_model(id);
+            models.setId(id);
             Models savedModels = modelRepository.save(models);
             return new ResponseEntity<>(savedModels, HttpStatus.OK);
         } catch(Exception ex) {

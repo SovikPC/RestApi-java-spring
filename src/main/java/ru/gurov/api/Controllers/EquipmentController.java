@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import lombok.RequiredArgsConstructor;
 import ru.gurov.api.Models.Equipments;
-import ru.gurov.api.Repositoryes.EquipmentRepository;
+import ru.gurov.api.Repositories.EquipmentRepository;
 
 @RestController
 @RequiredArgsConstructor
@@ -36,7 +36,7 @@ public class EquipmentController {
         }
     }
 
-    @PostMapping("/equipment/create")
+    @PostMapping("/equipment")
     public ResponseEntity<Object> createEquipment(@RequestBody Equipments equipments) {
         try {
             Equipments savedEquipments = equipmentRepository.save(equipments);
@@ -49,7 +49,7 @@ public class EquipmentController {
     @PutMapping("/equipment/{id}")
     public ResponseEntity<Object> updateEquipment(@PathVariable("id") Long id, @RequestBody Equipments equipments) {
         try {
-            equipments.setId_equipment(id);
+            equipments.setId(id);
             Equipments savedEquipments = equipmentRepository.save(equipments);
             return new ResponseEntity<>(savedEquipments, HttpStatus.OK);
         } catch(Exception ex) {

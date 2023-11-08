@@ -7,7 +7,9 @@ import ru.gurov.api.Models.Users;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import ru.gurov.api.Repositoryes.UserRepository;
+import ru.gurov.api.Repositories.UserRepository;
+
+import java.util.Optional;
 
 
 @RestController
@@ -59,7 +61,7 @@ public class UserController {
     @PutMapping("/users/{id}")
     public ResponseEntity<Object> updateUsers(@PathVariable("id") Long id, @RequestBody Users users) {
         try {
-            users.setId_user(id);
+            users.setId(id);
             BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
             String hashPassword = bCryptPasswordEncoder.encode(users.getPassword());
             users.setPassword(hashPassword);

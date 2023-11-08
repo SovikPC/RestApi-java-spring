@@ -1,7 +1,6 @@
 package ru.gurov.api.Models;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.GenericGenerator;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,16 +9,16 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Table(name = "Manufacturers")
+@Table(name = "Statuses")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Manufacturers {
+public class Statuses {
     @Id
-    @Column(name = "id_manufacturer")
+    @Column(name = "id_status")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name_manufacturer")
-    private String name;
+    @Column(name = "status")
+    private String status;
 }
