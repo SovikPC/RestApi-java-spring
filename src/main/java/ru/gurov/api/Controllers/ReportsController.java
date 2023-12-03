@@ -10,7 +10,7 @@ import ru.gurov.api.Repositories.ReportsRepository;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
-@CrossOrigin("http://localhost:8081/")
+@CrossOrigin(origins = "http://localhost:2000", allowedHeaders = "*")
 public class ReportsController {
 
     private final ReportsRepository reportsRepository;

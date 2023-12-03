@@ -4,15 +4,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.gurov.api.Models.Equipments;
 import ru.gurov.api.Models.Responsible_persons;
-import ru.gurov.api.Repositories.EquipmentRepository;
 import ru.gurov.api.Repositories.ResponsibleRepository;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
-@CrossOrigin("http://localhost:8081/")
+@CrossOrigin(origins = "http://localhost:2000", allowedHeaders = "*")
 public class ResponsibleController {
     private final ResponsibleRepository responsibleRepository;
 

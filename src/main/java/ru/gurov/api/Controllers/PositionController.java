@@ -11,7 +11,7 @@ import ru.gurov.api.Repositories.PositionRepository;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
-@CrossOrigin("http://localhost:8081/")
+@CrossOrigin(origins = "http://localhost:2000", allowedHeaders = "*")
 public class PositionController {
 
     private final PositionRepository positionRepository;

@@ -1,7 +1,9 @@
 package ru.gurov.api.Controllers;
 
+import jakarta.annotation.security.PermitAll;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import lombok.RequiredArgsConstructor;
@@ -11,7 +13,7 @@ import ru.gurov.api.Repositories.EquipmentRepository;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
-@CrossOrigin("http://localhost:8081/")
+@CrossOrigin(origins = "http://localhost:2000", allowedHeaders = "*")
 public class EquipmentController {
 
     private final EquipmentRepository equipmentRepository;

@@ -1,7 +1,6 @@
 package ru.gurov.api.Models;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.GenericGenerator;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,7 +20,8 @@ public class Roles {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "name_role")
-    private String name;
+    private ERoles name;
 
 }

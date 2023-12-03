@@ -24,10 +24,10 @@ public class Reports {
     @Column(name = "data_create")
     private LocalDateTime data;
 
-    @Column(name = "description")
-    private String description;
-
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id_user")
     private Users users;
+
+    @Column(name = "path")
+    private String path;
 }

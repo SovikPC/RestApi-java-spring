@@ -13,7 +13,7 @@ import ru.gurov.api.Repositories.ModelRepository;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api")
-@CrossOrigin("http://localhost:8081/")
+@CrossOrigin(origins = "http://localhost:2000", allowedHeaders = "*")
 public class ModelController {
 
     private final ModelRepository modelRepository;

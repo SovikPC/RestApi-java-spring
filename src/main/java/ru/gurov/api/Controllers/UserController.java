@@ -9,13 +9,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import ru.gurov.api.Repositories.UserRepository;
 
-import java.util.Optional;
-
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
-@CrossOrigin("http://localhost:8081/")
+@CrossOrigin(origins = "http://localhost:2000", allowedHeaders = "*")
 public class UserController {
 
     private final UserRepository userRepository;

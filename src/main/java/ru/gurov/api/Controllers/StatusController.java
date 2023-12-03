@@ -11,7 +11,7 @@ import ru.gurov.api.Repositories.StatusRepository;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
-@CrossOrigin("http://localhost:8081/")
+@CrossOrigin(origins = "http://localhost:2000", allowedHeaders = "*")
 public class StatusController {
 
     private final StatusRepository statusRepository;

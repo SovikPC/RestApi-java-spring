@@ -11,7 +11,7 @@ import ru.gurov.api.Repositories.ManufacturerRepository;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
-@CrossOrigin("http://localhost:8081/")
+@CrossOrigin(origins = "http://localhost:2000", allowedHeaders = "*")
 public class ManufacturerController {
 
     private final ManufacturerRepository manufacturerRepository;

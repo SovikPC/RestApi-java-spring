@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import lombok.RequiredArgsConstructor;
+import ru.gurov.api.Models.ERoles;
 import ru.gurov.api.Models.Roles;
 import ru.gurov.api.Repositories.RoleRepository;
 
@@ -12,7 +13,7 @@ import ru.gurov.api.Repositories.RoleRepository;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
-@CrossOrigin("http://localhost:8081/")
+@CrossOrigin(origins = "http://localhost:2000", allowedHeaders = "*")
 public class RoleController {
 
     private final RoleRepository roleRepository;
@@ -28,7 +29,7 @@ public class RoleController {
     }
 
     @GetMapping("/roles/{name_role}")
-    public ResponseEntity<Object> getRolesByName(@PathVariable("name_role") String name_role){
+    public ResponseEntity<Object> getRolesByName(@PathVariable("name_role") ERoles name_role){
         try{
             Roles roles = roleRepository.findByName(name_role).orElseThrow();
             if(roles != null) {

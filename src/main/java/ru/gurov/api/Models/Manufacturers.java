@@ -1,7 +1,6 @@
 package ru.gurov.api.Models;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.GenericGenerator;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
