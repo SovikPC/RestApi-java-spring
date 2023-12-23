@@ -2,11 +2,10 @@ package ru.gurov.api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
-@SpringBootApplication
+@SpringBootApplication(exclude = SecurityAutoConfiguration.class)
 public class ApiApplication {
 
 	public static void main(String[] args) {
